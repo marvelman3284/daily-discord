@@ -30,13 +30,13 @@ class Utils(commands.Cog):
         # while True:
             # sleep(1)
         await message.author.send("hello world")
-    #
-    # @commands.command()
-    # async def ping(self, ctx):
-    #     """Displays latency between client and bot"""
-    #     latency = round(self.bot.latency * 1000, 2)
-    #     return await ctx.send('Pong! ' + str(latency) + 'ms')
-    #
+
+    @commands.command()
+    async def ping(self, ctx):
+        """Displays latency between client and bot"""
+        latency = round(self.bot.latency * 1000, 2)
+        return await ctx.send('Pong! ' + str(latency) + 'ms')
+
     #     # == START OWNER COMMANDS == #
     # @commands.command(hidden=True)
     # @commands.is_owner()
