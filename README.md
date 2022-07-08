@@ -1,3 +1,3 @@
-## ChadBot
+## morning bot
 
-The discord bot for the NvChad discord
+sends me info every morning
