@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 from discord.ext import commands
-import yaml, discord, sys, sqlite3, logging
+import yaml, discord, sys, logging
 
 from cogs.utils import Utils
 
@@ -51,9 +51,7 @@ intents.guild_messages = True  # Trivia
 intents.bans = True  # Ban messages
 intents.guilds = True  # Docs says so
 intents.guild_reactions = True  # For roles
-
-db = sqlite3.connect('data/chad.db')
-cur = db.cursor()
+intents.dm_messages = True # Needed for dms
 
 logging.basicConfig(level=logging.WARN)
 bot = Chad(command_prefix='!', intents=intents, configpath=sys.argv[1])

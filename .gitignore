@@ -1,1 +1,5 @@
 config.yml
+src/cogs/__pycache__
+src/services/__pycache__
+credentials.json
+token.json
