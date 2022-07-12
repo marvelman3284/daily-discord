@@ -8,3 +8,4 @@ class ChadHelp(commands.MinimalHelpCommand):
         for page in self.paginator.pages:
             emby = discord.Embed(description=page)
             await destination.send(embed=emby)
+
