@@ -1,6 +1,7 @@
 API:
-  token: 
-  clientid: 
-  ownerid: 
-Roles:
-  channel: 
+  clientid: <DISCORD-USER-ID-OF-BOT>
+  ownerid: <DISCORD-USER-ID-OF-BOT-OWNER>
+  token: <DISCORD-BOT-TOKEN>
+  key: <OPEN-WEATHER-API-KEY>
+  lat: <LATITUDE-OF-YOUR-HOUSE>
+  lon: <LONGITUDE-OF-YOUR-HOUSE>
