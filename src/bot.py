@@ -3,15 +3,15 @@ from discord.ext import commands
 import yaml, discord, sys, logging
 
 from cogs.utils import Utils
-from help import ChadHelp
+from help import MorningHelp
 
-class Chad(commands.Bot):
+class Morning(commands.Bot):
     """An extension of discord.ext.commands.Bot with configuration
     management and database management"""
     def __init__(self,
                  command_prefix,
                  configpath: str,
-                 help_command=ChadHelp(),
+                 help_command=MorningHelp(),
                  description=None,
                  **options):
         self.configpath = configpath
@@ -51,12 +51,12 @@ intents.guild_reactions = True  # For roles
 intents.dm_messages = True # Needed for dms
 
 logging.basicConfig(level=logging.WARN)
-bot = Chad(command_prefix='!', intents=intents, configpath=sys.argv[1])
+bot = Morning(command_prefix='!', intents=intents, configpath=sys.argv[1])
 
 
 @bot.event
 async def on_ready():
-    logging.info('Chad-next has started')
+    logging.info('Morning bot has started')
 
 bot.add_cog(Utils(bot))
 
