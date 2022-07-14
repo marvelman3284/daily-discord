@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 from discord.ext import commands
-import yaml, discord, sys, logging
+import yaml, discord, sys, logging, asyncio 
 
-from cogs.utils import Utils
+# from cogs.utils import Utils
 from help import MorningHelp
 
-class Morning(commands.Bot):
+class Morning(commands.AutoShardedBot):
     """An extension of discord.ext.commands.Bot with configuration
     management and database management"""
     def __init__(self,
@@ -37,27 +37,14 @@ class Morning(commands.Bot):
         with open(self.configpath, 'w') as configfile:
             yaml.dump(self.config, configfile)
 
-    def run(self):
-        """Calls discord.ext.commands.Bot.run() with token info"""
-        super().run(self.config['API']['token'])
 
+    async def setup_hook(self):
+        await self.load_extension(f"cogs.utils")
+        await self.tree.sync(guild=discord.Object(id=self.config['API']['guildid']))
 
-intents = discord.Intents()
-intents.members = True  # Join/Leave messages
-intents.guild_messages = True  # Trivia
-intents.bans = True  # Ban messages
-intents.guilds = True  # Docs says so
-intents.guild_reactions = True  # For roles
-intents.dm_messages = True # Needed for dms
+    
+intents = discord.Intents.all()
+logging.basicConfig(level=logging.INFO)
+bot = Morning(command_prefix='!', configpath=sys.argv[1], intents=intents)
 
-logging.basicConfig(level=logging.WARN)
-bot = Morning(command_prefix='!', intents=intents, configpath=sys.argv[1])
-
-
-@bot.event
-async def on_ready():
-    logging.info('Morning bot has started')
-
-bot.add_cog(Utils(bot))
-
-bot.run()
+bot.run(bot.config['API']['token'])
