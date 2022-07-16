@@ -17,23 +17,23 @@ class Morning(commands.Bot):
         initial_extensions: List[str],
         web_client: ClientSession,
         config_path,
-        testing_guild_id: Optional[int] = None,
+        testing: Optional[bool],
         **kwargs,
     ):
         super().__init__(*args, **kwargs)
         self.web_client = web_client
-        self.testing_guild_id = testing_guild_id
         self.initial_extensions = initial_extensions
         self.configpath = config_path
         conf_file = open(config_path)
         self.config = yaml.safe_load(conf_file)
+        self.testing = testing
 
     async def setup_hook(self) -> None:
         for extension in self.initial_extensions:
             await self.load_extension(f"cogs.{extension}")
 
-        if self.testing_guild_id:
-            guild = discord.Object(self.testing_guild_id)
+        if self.testing:
+            guild = discord.Object(self.config['API']['guildid'])
             self.tree.copy_global_to(guild=guild)
             await self.tree.sync(guild=guild)
 
@@ -61,9 +61,9 @@ async def main():
             commands.when_mentioned,
             config_path="config.yml",
             web_client=our_client,
-            testing_guild_id=664600025573359626,
             initial_extensions=exts,
             intents=discord.Intents.all(),
+            testing=True
         ) as bot:
 
             await bot.start(bot.config["API"]["token"])

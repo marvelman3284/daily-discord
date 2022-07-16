@@ -75,7 +75,7 @@ class Utils(commands.Cog):
 
         await ctx.response.send_message(embed=embed)
 
-    @tasks.loop(seconds=60)
+    @tasks.loop(minutes=1440.0)
     async def daily(self):
         def get_events(category: str) -> discord.Embed:
             events = gcal.filter(gcal.get_events()[category])
